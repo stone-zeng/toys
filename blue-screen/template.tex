@@ -1,0 +1,68 @@
+%=========================================
+% DO NOT MODIFY THE FOLLOWING DEFINITIONS!
+%=========================================
+\def\EMOJI{$EMOJI$}
+\def\BGCOLOR{$BGCOLOR$}
+\def\PERCENT{$PERCENT$}
+\def\LINK{$LINK$}
+%=========================================
+
+\documentclass{article}
+\usepackage{geometry,fontspec,xeCJK,qrcode,varwidth,xcolor}
+
+\geometry{%
+  paperwidth  = 48.1894cm,
+  paperheight = 27.0933cm,
+  left = 120pt}
+
+\setmainfont{segoen_slboot.ttf}[Path=C:/Boot/Fonts/]
+\setCJKmainfont{msyhn_boot.ttf}[Path=C:/Boot/Fonts/]
+
+\newcommand\TEXTA[1]{\begingroup\fontsize{180}{180}\selectfont#1\endgroup}
+\newcommand\TEXTB[1]{\begingroup\fontsize{24}{24}\selectfont#1\endgroup}
+\newcommand\TEXTC[1]{\begingroup\fontsize{12.5}{12.5}\selectfont#1\endgroup}
+\newcommand\TEXTD[1]{\begingroup\fontsize{10.5}{10.5}\selectfont#1\endgroup}
+
+\begin{document}
+
+\pagestyle{empty}
+\pagecolor[HTML]{\BGCOLOR}
+\color{white}
+
+\vspace*{30pt}
+
+\TEXTA{\EMOJI}
+
+\vspace{30pt}
+
+\TEXTB{你的电脑遇到问题，需要重新启动。我们只收集某些错误信息，然后为你重新启动。}
+
+\vspace{30pt}
+
+\TEXTB{\PERCENT\% 完成}
+
+\vspace{30pt}
+
+\begin{varwidth}[t]{\textwidth}
+  \vspace{0pt}
+  \setlength{\fboxsep}{8pt}
+  \scalebox{0.75}[1]{%
+    \colorbox{white}{%
+      \color[HTML]{\BGCOLOR}%
+      \qrcode[level=L,height=75pt]{\LINK}}}
+\end{varwidth}
+\hspace{10pt}
+\begin{varwidth}[t]{\textwidth}
+  \vspace{0pt}
+  \TEXTC{有关此问题的详细信息和可能的解决方法，请访问~~\LINK}
+
+  \vspace{25pt}
+
+  \TEXTD{如需致电支持人员，请向他们提供以下信息：}
+
+  \vspace{6pt}
+
+  \TEXTD{终止代码：CRITICAL\_PROCESS\_DIED}
+\end{varwidth}
+
+\end{document}

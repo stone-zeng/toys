@@ -1,0 +1,172 @@
+{
+    "colors": [
+        {
+            "nearestHTMLname": "Orange",
+            "hex": "#ffb900"
+        },
+        {
+            "nearestHTMLname": "DarkOrange",
+            "hex": "#ff8c00"
+        },
+        {
+            "nearestHTMLname": "OrangeRed",
+            "hex": "#f7630c"
+        },
+        {
+            "nearestHTMLname": "Chocolate",
+            "hex": "#ca5010"
+        },
+        {
+            "nearestHTMLname": "Red",
+            "hex": "#da3b01"
+        },
+        {
+            "nearestHTMLname": "Tomato",
+            "hex": "#ef6950"
+        },
+        {
+            "nearestHTMLname": "Crimson",
+            "hex": "#d13438"
+        },
+        {
+            "nearestHTMLname": "IndianRed",
+            "hex": "#e74856"
+        },
+        {
+            "nearestHTMLname": "Red",
+            "hex": "#e81123"
+        },
+        {
+            "nearestHTMLname": "Crimson",
+            "hex": "#ea005e"
+        },
+        {
+            "nearestHTMLname": "Crimson",
+            "hex": "#c30052"
+        },
+        {
+            "nearestHTMLname": "MediumVioletRed",
+            "hex": "#e3008c"
+        },
+        {
+            "nearestHTMLname": "MediumVioletRed",
+            "hex": "#bf0077"
+        },
+        {
+            "nearestHTMLname": "MediumOrchid",
+            "hex": "#c239b3"
+        },
+        {
+            "nearestHTMLname": "SteelBlue",
+            "hex": "#0078d7"
+        },
+        {
+            "nearestHTMLname": "RoyalBlue",
+            "hex": "#0063b1"
+        },
+        {
+            "nearestHTMLname": "MediumPurple",
+            "hex": "#8e8cd8"
+        },
+        {
+            "nearestHTMLname": "MediumSlateBlue",
+            "hex": "#6b69d6"
+        },
+        {
+            "nearestHTMLname": "MediumPurple",
+            "hex": "#8764b8"
+        },
+        {
+            "nearestHTMLname": "SlateBlue",
+            "hex": "#744da9"
+        },
+        {
+            "nearestHTMLname": "MediumOrchid",
+            "hex": "#b146c2"
+        },
+        {
+            "nearestHTMLname": "CadetBlue",
+            "hex": "#0099bc"
+        },
+        {
+            "nearestHTMLname": "SteelBlue",
+            "hex": "#2d7d9a"
+        },
+        {
+            "nearestHTMLname": "DarkTurquoise",
+            "hex": "#00b7c3"
+        },
+        {
+            "nearestHTMLname": "Teal",
+            "hex": "#038387"
+        },
+        {
+            "nearestHTMLname": "LightSeaGreen",
+            "hex": "#00b294"
+        },
+        {
+            "nearestHTMLname": "Teal",
+            "hex": "#018574"
+        },
+        {
+            "nearestHTMLname": "MediumSeaGreen",
+            "hex": "#00cc6a"
+        },
+        {
+            "nearestHTMLname": "Gray",
+            "hex": "#7a7574"
+        },
+        {
+            "nearestHTMLname": "DimGray",
+            "hex": "#5d5a58"
+        },
+        {
+            "nearestHTMLname": "SlateGray",
+            "hex": "#68768a"
+        },
+        {
+            "nearestHTMLname": "DimGray",
+            "hex": "#515c6b"
+        },
+        {
+            "nearestHTMLname": "Teal",
+            "hex": "#567c73"
+        },
+        {
+            "nearestHTMLname": "DarkSlateGray",
+            "hex": "#486860"
+        },
+        {
+            "nearestHTMLname": "Green",
+            "hex": "#498205"
+        },
+        {
+            "nearestHTMLname": "Gray",
+            "hex": "#767676"
+        },
+        {
+            "nearestHTMLname": "DimGray",
+            "hex": "#4c4a48"
+        },
+        {
+            "nearestHTMLname": "SlateGray",
+            "hex": "#69797e"
+        },
+        {
+            "nearestHTMLname": "DarkSlateGray",
+            "hex": "#4a5459"
+        },
+        {
+            "nearestHTMLname": "SeaGreen",
+            "hex": "#647c64"
+        },
+        {
+            "nearestHTMLname": "DimGray",
+            "hex": "#525e54"
+        },
+        {
+            "nearestHTMLname": "Olive",
+            "hex": "#847545"
+        }
+    ]
+}

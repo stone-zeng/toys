@@ -1,2 +1,9 @@
+# TeX auxiliaries
+*.aux
+*.log
+*.pdf
+
 .vscode/
+blue-screen/images/
+blue-screen/config.json
 git-log-parser/*.json

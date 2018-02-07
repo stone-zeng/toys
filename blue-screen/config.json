@@ -1,0 +1,43 @@
+{
+    "tex": "xelatex",
+    "options": "--interaction=batchmode",
+    "convert": "convert",
+    "items": [
+        {
+            "name": "blue",
+            "color": "#0078D7",
+            "emoji": ":(",
+            "progress": 0
+        },
+        {
+            "name": "red",
+            "color": "#E74856",
+            "emoji": "*\\textunderscore*",
+            "progress": 20
+        },
+        {
+            "name": "orange",
+            "color": "#FFB900",
+            "emoji": "(\\textasciicircum\\textunderscore\\textasciicircum)",
+            "progress": 40
+        },
+        {
+            "name": "purple",
+            "color": "#8764B8",
+            "emoji": ":)",
+            "progress": 60
+        },
+        {
+            "name": "green",
+            "color": "#498205",
+            "emoji": "@-@",
+            "progress": 80
+        },
+        {
+            "name": "gray",
+            "color": "#767676",
+            "emoji": ":-P",
+            "progress": 100
+        }
+    ]
+}
