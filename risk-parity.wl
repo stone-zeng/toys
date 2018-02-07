@@ -10,6 +10,9 @@ Remove["Global`*"]
 rawData = Import["risk-parity.csv", "Data"][[2;;]];
 
 
+indicesNumber = Length[rawData[[1, 2;;]]]
+
+
 ratio = Ratios[rawData[[All, 2;;]]]-1;
 Dimensions[ratio]
 date = DateObject /@ (rawData[[2;;, 1]]);
@@ -49,6 +52,24 @@ getValueMatrices[$assoc_, $indexAssoc_, $dateBeginList_, $dateEndList_]:=
     ParallelMap[Values @ KeySelect[ratioDateAssoc, Function[$date, #[[1]] <= $date <= #[[2]]]]&,
       Transpose @ {$dateBeginList, $dateEndList}]
 *)
+(*
+  (* TEST *)
+  MatrixForm[m = First @ getValueMatrices[ratioDateAssoc, indexKeyAssoc,
+    DateObject /@ {"20100105"}, DateObject /@ {"20100120"}]]
+  Fold[Times] /@ Transpose @ (m + 1)
+  findLargestIndex[%, 4]
+  m[[All,Sort @ %]] // MatrixForm
+  Clear[m]
+*)
+
+
+findLargestIndex[$list_, $n_:1]:=
+  Part[#, 2]& /@ TakeLargestBy[Transpose[{$list, Range @ Length @ $list}], #[[1]]&, $n]
+(* 
+  (* TEST *)
+  findLargestIndex[{156, 16, 894, 2, 9496, 14}]
+  findLargestIndex[{156, 16, 894, 2, 9496, 14}, 4]
+*)
 
 
 (* Argument format: {n,  "DateType"} *)
@@ -62,6 +83,38 @@ calcCovariance[$timeWindow_, $adjustPeriod_]:=
   ]]]
 
 
+getRMIndices[$adjustPeriod_, $momentumPeriod_, $num_]:=
+  With[{$endDate = getAdjustPeroidList[ratioDateAssoc, $adjustPeriod, beginDate, endDate]},
+    With[{$rawBeginDate = DatePlus[#, $momentumPeriod /. {t_, s_}->{-t, s}]& /@ $endDate},
+      With[{$beginDate = (lookupDateValue[ratioDateAssoc, #]& /@ $rawBeginDate)[[All, 1]]},
+        findLargestIndex[#, $num]& /@ Map[Fold[Times], #, {2}]& @
+            (Transpose /@ getValueMatrices[ratioDateAssoc, indexKeyAssoc, $beginDate, $endDate] + 1)
+  ]]]
+(*
+  (* TEST *)
+  getRMIndices[{100, "Day"}, {1, "Month"}, 4]
+*)
+
+
+(* Argument format: {n,  "DateType"} *)
+(* "RM" means Relative Momentum      *)
+calcCovarianceRM[$timeWindow_, $adjustPeriod_, $indices_]:=
+  With[{$endDate = getAdjustPeroidList[ratioDateAssoc, $adjustPeriod, beginDate, endDate]},
+    With[{$rawBeginDate = DatePlus[#, $timeWindow /. {t_, s_}->{-t, s}]& /@ $endDate},
+      With[{$beginDate = (lookupDateValue[ratioDateAssoc, #]& /@ $rawBeginDate)[[All, 1]]},
+        DeleteDuplicates @ Map[Apply @ Rule, Transpose @
+          {$endDate, Covariance /@ MapThread[
+            Part[#1, All, #2]&,
+            {getValueMatrices[ratioDateAssoc, indexKeyAssoc, $beginDate, $endDate], $indices}]
+          }]
+  ]]]
+(*
+  (* TEST *)
+  MatrixForm/@calcCovarianceRM[{6, "Month"}, {100, "Day"},
+    getRMIndices[{100, "Day"}, {3, "Month"}, 2]]
+*)
+
+
 (* ::Section:: *)
 (*Solve for weights*)
 
@@ -72,6 +125,24 @@ solveWeights[$Sigma_]:=
       $w /. NSolve[Flatten @ {Equal @@ ($w * $Sigma . $w / Sqrt[$w . $Sigma . $w]),
         Total[$w] == 1.0, Greater[#, 0]& /@ $w}, $w][[1]]
   ]]
+
+
+solveWeightsRMAux[$Sigma_, $indices_]:=
+  Module[{$w = ToExpression /@ (("w" <> ToString[#])& /@ $indices)},
+      $w /. NSolve[Flatten @ {Equal @@ ($w * $Sigma . $w / Sqrt[$w . $Sigma . $w]),
+        Total[$w] == 1.0, Greater[#, 0]& /@ $w}, $w][[1]]
+  ]
+solveWeightsRM[$Sigma_, $indices_]:=
+  Normal @ SparseArray[#, indicesNumber]& /@ Thread /@
+    MapThread[Rule, {$indices, MapThread[solveWeightsRMAux, {Values @ $Sigma, $indices}]}]
+(*
+  (* TEST *)
+  indices = getRMIndices[{100, "Day"}, {3, "Month"}, 2]
+  cov = calcCovarianceRM[{6, "Month"}, {100, "Day"}, indices];
+  weights = MapThread[solveWeightsRMAux, {Values @ cov, indices}]
+  solveWeightsRM[cov, indices]
+  Clear[indices, cov, weights]
+*)
 
 
 getYieldRate[$dateList_]:=
@@ -96,7 +167,7 @@ plotWeight[$weightList_, $xTicks_:Automatic]:=
 
 
 plotProfit[$profitList_, $xTicks_:Automatic]:=
-  ListPlot[$profitList, Joined -> True,
+  ListPlot[$profitList, Joined -> True, PlotRange -> {0.8, 2.0},
     FrameTicks -> {$xTicks, Automatic},
     PlotTheme -> "Business", PlotMarkers -> None, PlotLegends -> {"Equal risk", "Equal weight"}]
 
@@ -105,12 +176,25 @@ plotProfit[$profitList_, $xTicks_:Automatic]:=
 (*Test*)
 
 
+(*
 timeWindow   = {6, "Month"};
-adjustPeriod = {50, "Day"};
+adjustPeriod = {100, "Day"};
 AbsoluteTiming[cov = calcCovariance[timeWindow, adjustPeriod];]
 AbsoluteTiming[weights = ParallelMap[solveWeights, Values @ cov];]
+AbsoluteTiming[profit = getProfit[weights[[;;-2]], Keys @ cov];]
+*)
 
 
-xTicks = getXTicks[Keys @ cov, 1;;-1;;4];
+timeWindow   = {2, "Year"};
+adjustPeriod = {30, "Day"};
+momentum     = {0, "Month"};
+number       = 3;
+AbsoluteTiming[indices = getRMIndices[adjustPeriod, momentum, number];]
+AbsoluteTiming[cov = calcCovarianceRM[timeWindow, adjustPeriod, indices];]
+AbsoluteTiming[weights = solveWeightsRM[cov, indices];]
+AbsoluteTiming[profit = getProfit[weights[[;;-2]], Keys @ cov];]
+
+
+xTicks = getXTicks[Keys @ cov, 1;;-1;;10];
 plotWeight[weights, xTicks]
-plotProfit[getProfit[weights[[;;-2]], Keys @ cov], xTicks]
+plotProfit[profit, xTicks]
