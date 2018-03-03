@@ -2,7 +2,7 @@
 
 - `blue-screen/`: A (faked) blue screen generator.
 
-- `git-log-parser/`: Parse git log and plot contributions (as GitHub).
+- `git-log-parser/`: Git log parser and contributions plot (as GitHub).
 
 - `dqmc.wl`: Determinant quantum Monte Carlo algorithm.
 

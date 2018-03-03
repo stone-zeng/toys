@@ -6,4 +6,3 @@
 .vscode/
 blue-screen/images/
 blue-screen/config.json
-git-log-parser/*.json

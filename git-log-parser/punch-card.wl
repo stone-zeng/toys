@@ -6,6 +6,11 @@ Remove["Global`*"]
 SetDirectory[NotebookDirectory[]];
 
 
+(* ::Section:: *)
+(*Old Lua solution (deprecated)*)
+
+
+(*
 Run["git log"
   <> " --pretty=format:\"BEGIN%n"
   <> "  %x22commit%x22: %x22%H%x22,%n"
@@ -15,9 +20,55 @@ Run["git log"
   <> " > git-log.log"];
 Run["texlua git-log-json.lua"];
 Run["del git-log.log"];
+*)
 
 
-list = Import["git-log.json"];
+(* ::Section:: *)
+(*Get Git log*)
+
+
+logFileName = "git-log.log";
+
+
+Run["git log"
+  <> " --pretty=format:\"$BEGIN%n"
+  <> " $COMMIT>%h<$COMMIT%n"
+  <> " $SUBJECT>%s<$SUBJECT%n"
+  <> " $DATE>%ai<$DATE\""
+  <> " --shortstat"
+  <> " > " <> logFileName];
+gitLog = Import[logFileName];
+DeleteFile[logFileName]
+
+
+(* ::Section:: *)
+(*Parse*)
+
+
+commitPattern    = "$COMMIT>" ~~ commit : WordCharacter.. ~~ "<$COMMIT" -> commit;
+subjectPattern   = "$SUBJECT>" ~~ subject__ ~~ "<$SUBJECT" -> subject;
+datePattern      = "$DATE>" ~~ date__ ~~ "<$DATE" -> date;
+filePattern      = file : DigitCharacter.. ~~ Whitespace ~~ "file" -> file;
+insertionPattern = insertion : DigitCharacter.. ~~ Whitespace ~~ "insertion" -> insertion;
+deletionPattern  = deletion : DigitCharacter.. ~~ Whitespace ~~ "deletion" -> deletion;
+
+
+parseGitLogItem[str_] := Association @
+  {
+    "commit"        -> First @ StringCases[str, commitPattern],
+    "subject"       -> First @ StringCases[str, subjectPattern],
+    "date"          -> First @ StringCases[str, datePattern],
+    "files-changed" -> ToExpression @ First @ (StringCases[str, filePattern] /. {} -> {"0"}),
+    "insertions"    -> ToExpression @ First @ (StringCases[str, insertionPattern] /. {} -> {"0"}),
+    "deletions"     -> ToExpression @ First @ (StringCases[str, deletionPattern] /. {} -> {"0"})
+  }
+
+
+list = parseGitLogItem /@ StringSplit[gitLog, "$BEGIN"];
+
+
+(* ::Section:: *)
+(*Plot*)
 
 
 dateListRaw = "date" /. list[[#]]& /@ Range[Length @ list];
