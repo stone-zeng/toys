@@ -6,4 +6,6 @@
 
 - `dqmc.wl`: Determinant quantum Monte Carlo algorithm.
 
+- `git-helper.md`: Notes for using Git.
+
 - `risk-parity.wl`: Implementation of risk parity approach.
