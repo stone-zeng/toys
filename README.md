@@ -8,4 +8,6 @@
 
 - `git-helper.md`: Notes for using Git.
 
+- `gr-tensor.wl`: Tensors calculator in general relativity.
+
 - `risk-parity.wl`: Implementation of risk parity approach.
