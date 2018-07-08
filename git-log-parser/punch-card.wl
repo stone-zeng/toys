@@ -37,7 +37,7 @@ Run["git log"
   <> " $DATE>%ai<$DATE\""
   <> " --shortstat"
   <> " > " <> logFileName];
-gitLog = Import[logFileName];
+gitLog = Import[logFileName, "Text"];
 DeleteFile[logFileName]
 
 
@@ -91,7 +91,7 @@ DateHistogram[timeList, "Hour", DateTicksFormat -> {"Hour24Short", ":", "Minute"
 yTick = Transpose @ {Range[7], {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}};
 BubbleChart[Flatten /@ Tally[dateCount],
   AspectRatio -> 1/2.4, ImageSize -> 750, FrameTicks -> {{yTick, None}, {Range[0, 23, 2], None}},
-  PlotTheme -> "HeightGrid", PlotLabel -> "Punch card"]
+  PlotTheme -> "HeightGrid", PlotLabel -> "Punch card", PerformanceGoal -> "Speed"]
 
 
 DateListPlot[{Transpose @ {dateList, commitList /. {x_, y_} -> x},
