@@ -4,5 +4,6 @@
 *.pdf
 
 .vscode/
+__pycache__/
 blue-screen/images/
 blue-screen/config.json

@@ -4,6 +4,8 @@
 
 - `git-log-parser/`: Git log parser and contributions plot (as GitHub).
 
+- `sort/`: My sorting library for exercise.
+
 - `dqmc.wl`: Determinant quantum Monte Carlo algorithm.
 
 - `git-helper.md`: Notes for using Git.

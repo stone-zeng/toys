@@ -3,6 +3,15 @@
     Just for exercise.
 """
 
+SORT_METHODS = [
+    "bubble",
+    "selection",
+    "insertion",
+    "merge",
+    "quick",
+    "build-in"    # 内置函数
+]
+
 def sort_bubble(data):
     """冒泡排序。
 
@@ -159,16 +168,8 @@ def _test_sort(data, method="build-in", print_data=True):
 def main():
     """程序入口。
     """
-    sort_methods_list = [
-        "bubble",
-        "selection",
-        "insertion",
-        "merge",
-        "quick",
-        "build-in"    # 内置函数
-    ]
     data = _generate_data(use_random_data=True, data_num=1000)
-    for sort_method in sort_methods_list:
+    for sort_method in SORT_METHODS:
         _test_sort(data, method=sort_method, print_data=False)
 
 if __name__ == '__main__':
