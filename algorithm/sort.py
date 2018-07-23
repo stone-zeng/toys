@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 """My sorting library.
-    Just for exercise.
+    For exercise only.
 """
 
 SORT_METHODS = [

@@ -1,10 +1,10 @@
 # My Toys
 
+- `algorithm/`: Exercise for basic algorithms.
+
 - `blue-screen/`: A (faked) blue screen generator.
 
 - `git-log-parser/`: Git log parser and contributions plot (as GitHub).
-
-- `sort/`: My sorting library for exercise.
 
 - `dqmc.wl`: Determinant quantum Monte Carlo algorithm.
 
