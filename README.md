@@ -6,15 +6,17 @@
 
 - `git-log-parser/`: Git log parser and contributions plot (as GitHub).
 
-- `dqmc.wl`: Determinant quantum Monte Carlo algorithm.
+- `md-preview-style.less`: Markdown preview style for VS Code (with the extension [`Markdown Preview Enhanced`](https://github.com/shd101wyy/vscode-markdown-preview-enhanced)).
 
 - `git-helper.md`: Notes for using Git.
 
+- `dqmc.wl`: Determinant quantum Monte Carlo algorithm.
+
 - `gr-tensor.wl`: Tensors calculator in general relativity.
 
-- `md-preview-style.less`: Markdown preview style for VS Code (with the extension [`Markdown Preview Enhanced`](https://github.com/shd101wyy/vscode-markdown-preview-enhanced)).
-
 - `risk-parity.wl`: Implementation of risk parity approach.
+
+- `semistandard-tableaux.wl`: Find [semistandard Young tableaux](https://en.wikipedia.org/wiki/Young_tableau#Tableaux).
 
 ## License
 
