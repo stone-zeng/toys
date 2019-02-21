@@ -10,6 +10,8 @@
 
 - `git-helper.md`: Notes for using Git.
 
+- `listfont.py`: List fonts (like `fc-list`).
+
 - `dqmc.wl`: Determinant quantum Monte Carlo algorithm.
 
 - `gr-tensor.wl`: Tensors calculator in general relativity.
@@ -20,6 +22,6 @@
 
 ## License
 
-Copyright (C) 2018 by Xiangdong Zeng.
+Copyright (C) 2018&ndash;2019 by Xiangdong Zeng.
 
 Licensed under the [MIT](LICENSE) License.

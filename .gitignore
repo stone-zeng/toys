@@ -3,6 +3,7 @@
 *.log
 *.pdf
 
+.DS_Store
 .vscode/
 __pycache__/
 blue-screen/images/
