@@ -7,16 +7,33 @@ import sys
 FONT_DIR_MACOSX = [
     os.path.expanduser("~") + "/Library/Fonts/",
     "/Library/Fonts/",
-    "/System/Library/Fonts/"
+    "/System/Library/Fonts/",
+    "/System/Library/Assets/com_apple_MobileAsset_Font5/"
 ]
 FONT_DIR_TEXLIVE = [
-    "/usr/local/texlive/2018/texmf-dist/fonts/opentype/",
-    "/usr/local/texlive/2018/texmf-dist/fonts/truetype/"
+    "/usr/local/texlive/2019/texmf-dist/fonts/opentype/",
+    "/usr/local/texlive/2019/texmf-dist/fonts/truetype/"
 ]
-FONT_DIR = FONT_DIR_MACOSX + FONT_DIR_TEXLIVE
+FONT_DIR_ADOBE = [
+    # "/Applications/Adobe Illustrator CC 2019/Adobe Illustrator.app/Contents/Required/Fonts/",
+    "/Applications/Adobe InDesign CC 2019/Resources/Required/fonts/"
+]
+FONT_DIR_OFFICE = [
+    # "/Applications/Microsoft Excel.app/Contents/Resources/DFonts",
+    # "/Applications/Microsoft OneNote.app/Contents/Resources/DFonts",
+    # "/Applications/Microsoft PowerPoint.app/Contents/Resources/DFonts",
+    # "/Applications/Microsoft Excel.app/Contents/Resources/DFonts",
+    "/Applications/Microsoft Word.app/Contents/Resources/DFonts"
+]
+FONT_DIR_USER = [
+    # os.path.expanduser("~") + "/Files/Fonts/"
+]
+FONT_DIR = FONT_DIR_MACOSX + FONT_DIR_TEXLIVE + FONT_DIR_ADOBE + FONT_DIR_OFFICE + FONT_DIR_USER
 
 FONT_FILE_EXT = [".otf", ".ttf", ".otc", ".ttc"]
 FONT_COLLECTION_FILE_EXT = [".otc", ".ttc"]
+FONT_FILE_EXT = FONT_FILE_EXT + [i.upper() for i in FONT_FILE_EXT]
+FONT_COLLECTION_FILE_EXT = FONT_COLLECTION_FILE_EXT + [i.upper() for i in FONT_COLLECTION_FILE_EXT]
 
 _TTC_TAG               = 0x74746366  # = "ttcf"
 _SFNT_VERSION_CFF      = 0x4F54544F  # = "OTTO"
@@ -533,22 +550,27 @@ class _Name:
 
 
 def _main():
-    font_path_list = [
-        "/Library/Fonts/AppleGothic.ttf",
-        "/Library/Fonts/SourceSansPro-Regular.otf",
-        "/Library/Fonts/Times New Roman.ttf",
-        "/Library/Fonts/SourceHanSerif.ttc",
-        "/Library/Fonts/Baskerville.ttc",
-        os.path.expanduser("~") + "/Files/Fonts/Adobe/Adobe Variable Font Prototype/AdobeVFPrototype.otf",
-        os.path.expanduser("~") + "/Files/Fonts/Adobe/Adobe Variable Font Prototype/AdobeVFPrototype.ttf",
-    ]
-
     font_path_list = list_font_file()
+
+    def if_empty(label, name):
+        if name != "":
+            print(label + name)
+
+    def raw_str(string):
+        return repr(string)[1:-2]
 
     for font_path in font_path_list:
         font = OpenType(font_path)
+        print("Path:", font.font_file_path)
         for _font in font.fonts:
-            print(font.font_file_path + ":", _font.full_name)
+            print("\tFamily Name: " + _font.family_name)
+            print("\t\tFull Name:    " + _font.full_name)
+            print("\t\tPS Name:      " + _font.postscript_name)
+            if_empty("\t\tManufacturer: ", _font.manufacturer)
+            if_empty("\t\tDesigner:     ", _font.designer)
+            if_empty("\t\tVersion:      ", _font.version)
+            if_empty("\t\tCopyright:    ", raw_str(_font.copyright))
+        print()
 
 if __name__ == "__main__":
     _main()
