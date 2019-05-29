@@ -129,6 +129,8 @@ GRTensorShow[metric_Association] :=
 
 metricSchwarzschild = DiagonalMatrix @
   {1 / (1 - 2m / r), r^2, r^2 * Sin[\[Theta]]^2, -(1 - 2m / r)} /. m -> G M / c^2;
+metricSchwarzschildDeSitter = DiagonalMatrix @
+  {1 / (1 - 2m / r - r^2), r^2, r^2 * Sin[\[Theta]]^2, -(1 - 2m / r - r^2)} /. m -> G M / c^2;
 metricReissnerNordstrom = DiagonalMatrix @
   {1 / (1 - 2m / r + rQ^2 / r^2), r^2, r^2 * Sin[\[Theta]]^2, -(1 - 2m / r + rQ^2 / r^2)} /.
     {m -> G M / c^2, rQ^2 -> (G Q^2) / (4Pi \[CurlyEpsilon]0 c^4)};
@@ -144,5 +146,5 @@ metricRobertsonWalker = DiagonalMatrix @
 
 
 coord = {r, \[Theta], \[Phi], t};
-AbsoluteTiming[result = GRTensorCalculate[metricReissnerNordstrom, coord];]
+AbsoluteTiming[result = GRTensorCalculate[metricSchwarzschildDeSitter, coord];]
 GRTensorShow[result];
