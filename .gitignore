@@ -6,5 +6,11 @@
 .DS_Store
 .vscode/
 __pycache__/
+
 blue-screen/images/
 blue-screen/config.json
+
+data-structure/
+
+leetcode/a.out
+leetcode/_*
