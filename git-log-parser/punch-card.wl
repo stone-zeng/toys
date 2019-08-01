@@ -27,15 +27,16 @@ Run["del git-log.log"];
 (*Get Git log*)
 
 
-logFileName = "git-log.log";
+logFileName = "git-log-" <> Hash[Now[], "SHA256", "HexString"] <> ".log";
 
 
 Run["git log"
-  <> " --pretty=format:\"$BEGIN%n"
-  <> " $COMMIT>%h<$COMMIT%n"
-  <> " $SUBJECT>%s<$SUBJECT%n"
-  <> " $DATE>%ai<$DATE\""
+  <> " --pretty=format:\"@BEGIN%n"
+  <> " @COMMIT>%h<@COMMIT%n"
+  <> " @SUBJECT>%s<@SUBJECT%n"
+  <> " @DATE>%ai<@DATE\""
   <> " --shortstat"
+  <> " --all"
   <> " > " <> logFileName];
 gitLog = Import[logFileName, "Text"];
 DeleteFile[logFileName]
@@ -45,9 +46,9 @@ DeleteFile[logFileName]
 (*Parse*)
 
 
-commitPattern    = "$COMMIT>" ~~ commit : WordCharacter.. ~~ "<$COMMIT" -> commit;
-subjectPattern   = "$SUBJECT>" ~~ subject__ ~~ "<$SUBJECT" -> subject;
-datePattern      = "$DATE>" ~~ date__ ~~ "<$DATE" -> date;
+commitPattern    = "@COMMIT>" ~~ commit : WordCharacter.. ~~ "<@COMMIT" -> commit;
+subjectPattern   = "@SUBJECT>" ~~ subject___ ~~ "<@SUBJECT" -> subject;
+datePattern      = "@DATE>" ~~ date__ ~~ "<@DATE" -> date;
 filePattern      = file : DigitCharacter.. ~~ Whitespace ~~ "file" -> file;
 insertionPattern = insertion : DigitCharacter.. ~~ Whitespace ~~ "insertion" -> insertion;
 deletionPattern  = deletion : DigitCharacter.. ~~ Whitespace ~~ "deletion" -> deletion;
@@ -64,7 +65,7 @@ parseGitLogItem[str_] := Association @
   }
 
 
-list = parseGitLogItem /@ StringSplit[gitLog, "$BEGIN"];
+Length[list = parseGitLogItem /@ StringSplit[gitLog, "@BEGIN"]]
 
 
 (* ::Section:: *)
