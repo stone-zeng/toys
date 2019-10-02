@@ -4,6 +4,8 @@
 
 - `blue-screen/`: A (faked) blue screen generator.
 
+- `exact-diagonalization/`: Exact diagonalization for some statistical models.
+
 - `git-log-parser/`: Git log parser and contributions plot (as GitHub).
 
 - `md-preview-style.less`: Markdown preview style for VS Code (with the extension [`Markdown Preview Enhanced`](https://github.com/shd101wyy/vscode-markdown-preview-enhanced)).

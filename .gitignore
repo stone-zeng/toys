@@ -12,5 +12,7 @@ blue-screen/config.json
 
 data-structure/
 
+exact-diagonalization/result.json
+
 leetcode/a.out
 leetcode/_*

@@ -13,6 +13,7 @@
 
 
 Remove["Global`*"]
+SetDirectory[NotebookDirectory[]]
 
 
 flattenFirst = (Flatten[#, 1] &);
@@ -62,9 +63,9 @@ getGroundEigensystem[matrix_] :=
 (* SPDM = single-particle density matrix.
  * For the diagonal elements, it should be evaluated as
  *   (groundState * groundState) . basis[[All, i]]
- * But it happens to be simply 1.
+ * But it happens to be simply 0.
  *)
-getSPDM[groundState_, basis_, {i_, i_}] := 1.
+getSPDM[groundState_, basis_, {i_, i_}] := 0.
 getSPDM[groundState_, basis_, {i_, j_}] :=
   Total @ Merge[AssociationThread /@ {
       basis -> groundState,
@@ -119,8 +120,8 @@ Echo[cf, "condensate fraction: "];
 Echo[ov, "occupation variance: "];
 
 
-nRange = Range[3, 5];
-kRange = Subdivide[20., 32];
+nRange = Range[3, 11];
+kRange = Subdivide[20., 39];  (* There are 40 points. *)
 test[n_] := Module[{basis, matrix, groundState},
   basis = getBasis[n, n];
   matrix = ParallelMap[getMatrix[basis, #] &, kRange];
@@ -133,14 +134,14 @@ test[n_] := Module[{basis, matrix, groundState},
 
 result = {};
 Echo[AbsoluteTiming[AppendTo[result, test @ #];], "N = " <> ToString @ # <> ": "] & /@ nRange;
-result = Merge[Flatten] /@ result;
-result = With[{keys = Keys @ First @ result},
-  AssociationThread[keys -> Outer[Transpose @ {kRange, #2[#1]} &, keys, result]]];
+result = Prepend[Merge[Merge[Flatten] /@ result, Apply @ List],
+  {"nRange" -> nRange, "kRange" -> kRange}];
 
 plotFunc[key_, label_, opts: OptionsPattern[]] :=
-  ListLinePlot[result[key],
+  ListLinePlot[Transpose @ {kRange, #} & /@ result[key],
     PlotRange -> {-0.06, 1.06},
     PlotTheme -> "Detailed",
+    Mesh      -> All,
     ImageSize -> 300,
     PlotLabel -> label,
     FilterRules[{opts}, Options[ListLinePlot]]]
@@ -148,3 +149,4 @@ Row[{
   plotFunc["spdm", "SPDM"],
   plotFunc["cf", "Condensate fraction"],
   plotFunc["ov", "Occupation variance", PlotLegends -> nRange]}]
+Export["result.json", result, "RawJSON", "Compact" -> 2]
