@@ -15,8 +15,9 @@ FONT_DIR_TEXLIVE = [
     "/usr/local/texlive/2019/texmf-dist/fonts/truetype/"
 ]
 FONT_DIR_ADOBE = [
-    # "/Applications/Adobe Illustrator CC 2019/Adobe Illustrator.app/Contents/Required/Fonts/",
-    "/Applications/Adobe InDesign CC 2019/Resources/Required/fonts/"
+    "/Applications/Adobe Acrobat Reader DC.app/Contents/Frameworks/Adobe3D.framework/Resources/",
+    "/Applications/Adobe Acrobat Reader DC.app/Contents/Resources/Resource/CIDFont/",
+    "/Applications/Adobe Acrobat Reader DC.app/Contents/Resources/Resource/Font/",
 ]
 FONT_DIR_OFFICE = [
     # "/Applications/Microsoft Excel.app/Contents/Resources/DFonts",
@@ -463,6 +464,11 @@ class OpenType:
 class _OpenType:
     def __init__(self, path: str, raw_font: bytes, offset: int=0):
         # Offset Table
+        if (len(raw_font) < 12):
+            self.is_valid = False
+            sys.stderr.write(path + ": Invalid OpenType font!\n")
+            return
+
         sfnt_version, _num_tables, _, _, _ = struct.unpack_from(
             ">IHHHH", raw_font, offset)
         if sfnt_version == _SFNT_VERSION_CFF:
@@ -470,8 +476,11 @@ class _OpenType:
         elif sfnt_version == _SFNT_VERSION_TRUETYPE:
             self.outline_type = "TrueType"
         else:
-            self.outline_type = ""
+            self.is_valid = False
             sys.stderr.write(path + ": Invalid OpenType font!\n")
+            return
+
+        self.is_valid = True
 
         # Table record
         table_records = {}
