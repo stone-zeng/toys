@@ -16,14 +16,11 @@ Remove["Global`*"]
 SetDirectory[NotebookDirectory[]]
 
 
-flattenFirst = (Flatten[#, 1] &);
-
-
 (* `siteNum`: M in the paper
  * `particleNum`: N in the paper
  *)
 getBasis[siteNum_, particleNum_] :=
-  ReverseSort @ flattenFirst[
+  ReverseSort @ Catenate[
     Permutations[PadRight[#, siteNum]] & /@ IntegerPartitions[particleNum, siteNum]]
 
 
@@ -36,13 +33,13 @@ getMatrix[basis_, couplingConst_] := With[{basisNumRange = Range @ Length @ basi
     interactionPart[basis, couplingConst, basisNumRange]]]
 
 kineticPart[basis_, positionMap_, basisNumRange_] :=
-  flattenFirst @ MapThread[kineticPartMapFunc] @ {
+  Catenate @ MapThread[kineticPartMapFunc] @ {
     Apply[{positionMap[#1], #2} &, DeleteCases[{_, 0.}] /@
       Transpose[{operatorADaggerAState[basis], operatorADaggerAValue[basis]}, {3, 1, 2}], {2}],
     basisNumRange}
 operatorADaggerAState[basis_] := With[{len = Length @ First @ basis},
   Outer[Plus, basis, #, 1] & @
-    flattenFirst[NestList[RotateRight, PadRight[#, len], len - 1] & /@ {{1, -1}, {-1, 1}}]]
+    Catenate[NestList[RotateRight, PadRight[#, len], len - 1] & /@ {{1, -1}, {-1, 1}}]]
 operatorADaggerAValue[basis_] :=
   -Sqrt[(#1 + 1.) * #2] & @@@ (Join[#, Reverse[#, {2}]] & @ Partition[#, 2, 1, 1]) & /@ basis
 kineticPartMapFunc[stateValuePairs_, index_] :=
