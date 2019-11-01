@@ -19,7 +19,7 @@ local no_changed_str = key_file .. "0,\n"
   .. key_ins .. "0,\n" .. key_del .. "0\n"
 
 function parse_changed(str)
-  result = key_file .. string.match(str, pattern_file) .. ",\n"  
+  result = key_file .. string.match(str, pattern_file) .. ",\n"
   ins_str = string.match(str, pattern_ins)
   del_str = string.match(str, pattern_del)
   if ins_str ~= nil then

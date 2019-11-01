@@ -65,7 +65,7 @@ getValueMatrices[$assoc_, $indexAssoc_, $dateBeginList_, $dateEndList_]:=
 
 findLargestIndex[$list_, $n_:1]:=
   Part[#, 2]& /@ TakeLargestBy[Transpose[{$list, Range @ Length @ $list}], #[[1]]&, $n]
-(* 
+(*
   (* TEST *)
   findLargestIndex[{156, 16, 894, 2, 9496, 14}]
   findLargestIndex[{156, 16, 894, 2, 9496, 14}, 4]

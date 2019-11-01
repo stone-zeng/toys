@@ -83,9 +83,9 @@ commitList = {"insertions", "deletions"} /. list;
 dateCount = {DateValue[#, "Hour"], DateValue[#, "ISOWeekDay"]}& /@ dateList;
 
 
-DateHistogram[dateList, "Week", DateTicksFormat -> {"Year", "/", "Month"}, 
+DateHistogram[dateList, "Week", DateTicksFormat -> {"Year", "/", "Month"},
   PlotTheme -> "HeightGrid", AspectRatio -> 1/3, ImageSize -> 400, PlotLabel -> "Commits"]
-DateHistogram[timeList, "Hour", DateTicksFormat -> {"Hour24Short", ":", "Minute"}, 
+DateHistogram[timeList, "Hour", DateTicksFormat -> {"Hour24Short", ":", "Minute"},
   PlotTheme -> "HeightGrid", AspectRatio -> 1/3, ImageSize -> 400, PlotLabel -> "Commits in the day"]
 
 
