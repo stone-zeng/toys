@@ -12,6 +12,6 @@
 
 ## License
 
-Copyright (C) 2018&ndash;2019 by Xiangdong Zeng.
+Copyright (C) 2018&ndash;2020 by Xiangdong Zeng.
 
 Licensed under the [MIT](LICENSE) License.
