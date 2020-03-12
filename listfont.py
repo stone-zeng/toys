@@ -8,7 +8,7 @@ FONT_DIR_MACOSX = [
     os.path.expanduser("~") + "/Library/Fonts/",
     "/Library/Fonts/",
     "/System/Library/Fonts/",
-    "/System/Library/Assets/com_apple_MobileAsset_Font5/"
+    "/System/Library/AssetsV2/com_apple_MobileAsset_Font6/"
 ]
 FONT_DIR_TEXLIVE = [
     "/usr/local/texlive/2019/texmf-dist/fonts/opentype/",
@@ -36,9 +36,10 @@ FONT_COLLECTION_FILE_EXT = [".otc", ".ttc"]
 FONT_FILE_EXT = FONT_FILE_EXT + [i.upper() for i in FONT_FILE_EXT]
 FONT_COLLECTION_FILE_EXT = FONT_COLLECTION_FILE_EXT + [i.upper() for i in FONT_COLLECTION_FILE_EXT]
 
-_TTC_TAG               = 0x74746366  # = "ttcf"
-_SFNT_VERSION_CFF      = 0x4F54544F  # = "OTTO"
-_SFNT_VERSION_TRUETYPE = 0x00010000
+_TTC_TAG                 = 0x74746366  # = "ttcf"
+_SFNT_VERSION_CFF        = 0x4F54544F  # = "OTTO"
+_SFNT_VERSION_TRUETYPE_1 = 0x00010000
+_SFNT_VERSION_TRUETYPE_2 = 0x74727565  # = "true"
 
 NAME_ID_DICT = {
     0:  "copyright",
@@ -49,7 +50,7 @@ NAME_ID_DICT = {
     6:  "postscript_name",
     8:  "manufacturer",
     9:  "designer",
-    10: "desription",
+    10: "description",
     16: "typographic_family_name",
     17: "typographic_subfamily_name"
 }
@@ -473,7 +474,7 @@ class _OpenType:
             ">IHHHH", raw_font, offset)
         if sfnt_version == _SFNT_VERSION_CFF:
             self.outline_type = "CFF"
-        elif sfnt_version == _SFNT_VERSION_TRUETYPE:
+        elif sfnt_version == _SFNT_VERSION_TRUETYPE_1 or sfnt_version == _SFNT_VERSION_TRUETYPE_2:
             self.outline_type = "TrueType"
         else:
             self.is_valid = False
@@ -499,7 +500,7 @@ class _OpenType:
         self.postscript_name            = self._join(self._name.postscript_name)
         self.manufacturer               = self._join(self._name.manufacturer)
         self.designer                   = self._join(self._name.designer)
-        self.desription                 = self._join(self._name.desription)
+        self.description                = self._join(self._name.description)
         self.typographic_family_name    = self._join(self._name.typographic_family_name)
         self.typographic_subfamily_name = self._join(self._name.typographic_subfamily_name)
 
@@ -533,7 +534,7 @@ class _Name:
         self.postscript_name            = self._get(6)
         self.manufacturer               = self._get(8)
         self.designer                   = self._get(9)
-        self.desription                 = self._get(10)
+        self.description                = self._get(10)
         self.typographic_family_name    = self._get(16)
         self.typographic_subfamily_name = self._get(17)
 
@@ -551,7 +552,7 @@ class _Name:
         if encoding_name is not None:
             name_str = codecs.decode(name_str, encoding_name, errors="ignore")
         # DEBUG
-        # return (language, language_name, encoding, encoding_name, name_str)
+        # print (language, language_name, encoding, encoding_name, name_str)
         return name_str
 
     def _get(self, key):
@@ -572,9 +573,9 @@ def _main():
         font = OpenType(font_path)
         print("Path:", font.font_file_path)
         for _font in font.fonts:
-            print("\tFamily Name: " + _font.family_name)
-            print("\t\tFull Name:    " + _font.full_name)
-            print("\t\tPS Name:      " + _font.postscript_name)
+            if_empty("\tFamily Name: ",    _font.family_name)
+            if_empty("\t\tFull Name:    ", _font.full_name)
+            if_empty("\t\tPS Name:      ", _font.postscript_name)
             if_empty("\t\tManufacturer: ", _font.manufacturer)
             if_empty("\t\tDesigner:     ", _font.designer)
             if_empty("\t\tVersion:      ", _font.version)
