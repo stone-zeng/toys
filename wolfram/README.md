@@ -1,6 +1,7 @@
 # Wolfram
 
-- `mathematica-talk/`: Talk: *Mathematica in a Nutshell*
+- `han-overlay/`: Experiment of han overlay (汉字叠加实验).
+- `mathematica-talk/`: Talk: *Mathematica in a Nutshell*.
 - `dqmc.wl`: Determinant quantum Monte Carlo algorithm.
 - `eight-queens.wl`: Eight-queens problem.
 - `gr-tensor.wl`: Tensors calculator in general relativity.

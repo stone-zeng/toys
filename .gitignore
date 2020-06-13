@@ -17,3 +17,6 @@ exact-diagonalization/result.json
 leetcode/a.out
 leetcode/*.dSYM/
 leetcode/temp/
+
+wolfram/han-overlay/fonts/
+wolfram/han-overlay/images/
