@@ -2,9 +2,10 @@
 
 - `algorithm/`: Exercise for basic algorithms.
 - `blue-screen/`: A (faked) blue screen generator.
+- `euler/`: Project Euler problem solving journey.
 - `exact-diagonalization/`: Exact diagonalization for some statistical models.
 - `git-log-parser/`: Git log parser and contributions plot (as GitHub).
-- `leetcode/`: My LeetCode problem solving journey.
+- `leetcode/`: LeetCode problem solving journey.
 - `wolfram/`: Miscellaneous codes written in Wolfram Language.
 - `git-helper.md`: Notes for using Git.
 - `listfont.py`: List fonts (like `fc-list`).
