@@ -92,7 +92,7 @@ Total[Total[n^2 - (n-1) * Range[0, 3]] /. n -> Range[3, 1001, 2]] + 1
 (*29. Distinct powers*)
 
 
-Length @ Union @ Flatten @ Table[a^b, {a, 2, 100}, {b, 2, 100}]
+Union @@ Table[a^b, {a, 2, 100}, {b, 2, 100}] // Length
 (* 9183 *)
 
 
