@@ -12,11 +12,14 @@ blue-screen/config.json
 
 data-structure/
 
+euler/a.out
+euler/*.dSYM/
+
 exact-diagonalization/result.json
 
 leetcode/a.out
 leetcode/*.dSYM/
 leetcode/temp/
 
-wolfram/han-overlay/fonts/
-wolfram/han-overlay/images/
+wolfram/hanzi-superimposing/fonts/
+wolfram/hanzi-superimposing/images/

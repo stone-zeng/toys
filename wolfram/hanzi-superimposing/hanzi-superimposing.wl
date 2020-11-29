@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*Han overlay*)
+(*Han superimposing*)
 
 
 (* ::Section:: *)
@@ -12,11 +12,7 @@ Remove["Global`*"]
 SetDirectory[NotebookDirectory[]]
 
 
-$PythonSession = StartExternalSession[<|
-  "System"     -> "Python",
-  "Version"    -> "3.8.2",
-  "Executable" -> "/usr/local/opt/python@3.8/bin/python3.8"
-|>]
+$PythonSession = StartExternalSession["Python"]
 pythonEvaluate[code_] := ExternalEvaluate[$PythonSession, code]
 
 
@@ -206,9 +202,6 @@ $HanRangeAssoc = ToCharacterCode /@ <|"UpDown" -> "\
 \:592b\:592d\:5929\:77e2\:5931\:5173\:592e\:7236\:4e49\:53c8\:53c9\:6587\:652f\:6534\:4e08\:53f2\:540f\:66f4\:53ca\:76ae\:53cd\:53cb\:53d1\:758b\:8db3\:8d70\:4e4b\:4e4f\:5973\:5934\:9875\:8d1f\:8d1e\:516d\:5174\:53ea\:5171\:5176\:5177\:5178\:4e18\:5175\:4e52\:4e53\:4e48\:5e7a\:4e1d\:516c\:4e91\:4e22\:77f3\:5360\:820c\:8c37\:8a00\:4e11\:4e94\:4e92\:5eff\:7518\:66f0\:81fc\:767d\:81ea\:9996\:76f4\:4e14\:9c7c\:4e1e\:627f\:7530\:7531\:66f2\:9762\:5c6e\:51f8\:51f9\
 "|>;
 Length /@ $HanRangeAssoc
-
-
-Iconize @ $GB2312Range
 
 
 (* ::Section:: *)
