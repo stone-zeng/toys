@@ -255,12 +255,12 @@ draw[fontPath_, cidmapPath_, glyphRange_, checkIdeoFace_:False] := Module[
   (* Import FontForge *)
   Echo[#, "FontForge version:"] & @
     pythonEvaluate["import fontforge as ff; ff.version()"];
-    
+
   (* Load Font *)
   Echo[#, "Time:"] & @ First @ AbsoluteTiming[
     fontInfo = pythonEvaluate @ pyCodeLoadFont[fontPath, cidmapPath]];
   Echo[#, "Font info:"] & @ TextGrid @ fontInfo;
-  
+
   (* Get baseline *)
   If[checkIdeoFace,
     horiBase = calcBaseline @ pythonEvaluate["font.horizontalBaseline"];
@@ -276,7 +276,7 @@ draw[fontPath_, cidmapPath_, glyphRange_, checkIdeoFace_:False] := Module[
   Echo[#, "Time:"] & @ First @ AbsoluteTiming[
     curves = DeleteCases[{}] @ pythonEvaluate @ pyCodeGetCurves @ glyphRange];
   Echo[#, "Size:"] & @ Length[curves];
-  
+
   (* Return *)
   <|
     "Font"     -> pythonEvaluate["font.fullname"],
