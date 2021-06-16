@@ -30,7 +30,7 @@ impl Solution {
 }
 
 fn main() {
-    for i in &[ 
+    for i in &[
         vec![],
         vec![1],
         vec![1,2],

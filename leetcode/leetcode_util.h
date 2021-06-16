@@ -42,7 +42,7 @@ inline std::string to_string(const std::string & val) {
 }
 
 inline std::string to_string(char c) {
-    std::string s(1, c); 
+    std::string s(1, c);
     return s;
 }
 
