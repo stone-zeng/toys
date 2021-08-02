@@ -1,15 +1,15 @@
-"""38. Count and Say
+'''38. Count and Say
 https://leetcode.com/problems/count-and-say/
-"""
+'''
 
 class Solution:
     def countAndSay(self, n: int) -> str:
         if n == 1:
-            return "1"
+            return '1'
 
         last_str = self.countAndSay(n - 1)
         last_str_len = len(last_str)
-        result = ""
+        result = ''
         i = 0
         while i < last_str_len:
             j = i + 1

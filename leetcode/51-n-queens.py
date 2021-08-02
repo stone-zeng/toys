@@ -1,6 +1,6 @@
-"""51. N-Queens
+'''51. N-Queens
 https://leetcode.com/problems/n-queens/
-"""
+'''
 
 from itertools import permutations
 from typing import Dict, List

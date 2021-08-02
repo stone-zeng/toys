@@ -1,6 +1,6 @@
-"""20. Valid Parentheses
+'''20. Valid Parentheses
 https://leetcode.com/problems/valid-parentheses/
-"""
+'''
 
 class Solution:
     def isValid(self, s: str) -> bool:
@@ -19,7 +19,7 @@ class Solution:
             return False
 
     def isMatch(self, c1: str, c2: str) -> bool:
-        if (c1, c2) == ("(", ")") or (c1, c2) == ("[", "]") or (c1, c2) == ("{", "}"):
+        if (c1, c2) == ('(', ')') or (c1, c2) == ('[', ']') or (c1, c2) == ('{', '}'):
             return True
         else:
             return False

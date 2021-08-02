@@ -1,11 +1,11 @@
-"""14. Longest Common Prefix
+'''14. Longest Common Prefix
 https://leetcode.com/problems/longest-common-prefix/
-"""
+'''
 
 class Solution:
     def longestCommonPrefix(self, strs) -> str:
         if len(strs) == 0:
-            return ""
+            return ''
         min_len = min(len(i) for i in strs)
         for i in range(min_len):
             prefix = strs[0][:i+1]
@@ -13,4 +13,4 @@ class Solution:
                 return prefix[:-1]
             if i == min_len - 1:
                 return prefix
-        return ""
+        return ''

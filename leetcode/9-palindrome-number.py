@@ -1,15 +1,15 @@
-"""9. Palindrome Number
+'''9. Palindrome Number
 https://leetcode.com/problems/palindrome-number/
-"""
+'''
 
 import math
 
 class Solution:
     def isPalindrome(self, x):
-        """
+        '''
         :type x: int
         :rtype: bool
-        """
+        '''
         if x >= 10:
             x_len = math.floor(math.log10(x)) + 1
             digit_list = []

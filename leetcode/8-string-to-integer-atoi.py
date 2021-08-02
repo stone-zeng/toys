@@ -1,10 +1,10 @@
-"""8. String to Integer (atoi)
+'''8. String to Integer (atoi)
 https://leetcode.com/problems/string-to-integer-atoi/
-"""
+'''
 
 import re
 
-PATTERN = re.compile(r"^\s*([\+\-]?)0*(\d+)")
+PATTERN = re.compile(r'^\s*([\+\-]?)0*(\d+)')
 INT_MAX = pow(2, 31) - 1
 INT_MIN = -pow(2, 31)
 INT_MAX_LEN = 10
@@ -16,9 +16,9 @@ class Solution:
             return 0
         sign    = search.group(1)
         num_str = search.group(2)
-        if search.group(2) == "" or search.group(2) == "0":
+        if search.group(2) == '' or search.group(2) == '0':
             return 0
-        if sign == "-":
+        if sign == '-':
             if len(num_str) > INT_MAX_LEN:
                 return INT_MIN
             num = self._atoi(num_str)  # num >= 0

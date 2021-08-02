@@ -1,6 +1,6 @@
-"""3. Longest Substring Without Repeating Characters
+'''3. Longest Substring Without Repeating Characters
 https://leetcode.com/problems/longest-substring-without-repeating-characters/
-"""
+'''
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
@@ -16,14 +16,17 @@ class Solution:
         return sub_str_len
 
 s = Solution()
-print(s.lengthOfLongestSubstring("abcabcbb"))
-print(s.lengthOfLongestSubstring("bbbbb"))
-print(s.lengthOfLongestSubstring("abc"))
-print(s.lengthOfLongestSubstring("pwwkew"))
-print(s.lengthOfLongestSubstring("pwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkew"))
-print(s.lengthOfLongestSubstring(""))
-print(s.lengthOfLongestSubstring("b"))
-print(s.lengthOfLongestSubstring("bb"))
-print(s.lengthOfLongestSubstring("ab"))
-print(s.lengthOfLongestSubstring("abb"))
-print(s.lengthOfLongestSubstring("https://leetcode.com/problems/longest-substring-without-repeating-characters/"))
+for i in [
+    'abcabcbb',
+    'bbbbb',
+    'abc',
+    'pwwkew',
+    'pwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkewpwwkew',
+    '',
+    'b',
+    'bb',
+    'ab',
+    'abb',
+    'https://leetcode.com/problems/longest-substring-without-repeating-characters/',
+]:
+    print(s.lengthOfLongestSubstring(i))
