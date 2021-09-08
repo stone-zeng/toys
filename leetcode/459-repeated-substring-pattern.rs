@@ -7,7 +7,6 @@ impl Solution {
     pub fn repeated_substring_pattern(s: String) -> bool {
         let n = s.len();
         (1..n)
-            .into_iter()
             .filter(|&x| n % x == 0)
             .any(|i| s[..i].repeat(n / i) == s)
     }
