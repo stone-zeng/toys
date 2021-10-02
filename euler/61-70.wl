@@ -94,18 +94,19 @@ Total @ IntegerDigits @ Numerator @
 (*66. Diophantine equation*)
 
 
-solve[d_] := x /. First @ FindInstance[x^2 - d * y^2 == 1, {x, y}, PositiveIntegers]
-First @ MaximalBy[Last] @
-  Table[{d, solve[d]}, {d, Complement[Range[#], Range[Sqrt @ #]^2] & @ 1000}]
-(* {661, 16421658242965910275055840472270471049} *)
+solve[d_] := x /. First @
+  FindInstance[x^2 - d * y^2 == 1, {x, y}, PositiveIntegers]
+range = Complement[Range[#], Range[Sqrt @ #]^2] & @ 1000;
+MaximalBy[ParallelTable[{d, solve[d]}, {d, range}], Last][[1, 1]]
+(* 661 *)
 
 
 (* ::Section:: *)
 (*67. Maximum path sum II*)
 
 
-data = Import["https://projecteuler.net/project/resources/p067_triangle.txt", "Table"];
-maxPathSum[data]
+maxPathSum @
+  Import["https://projecteuler.net/project/resources/p067_triangle.txt", "Table"]
 (* 7273 *)
 
 
@@ -113,20 +114,22 @@ maxPathSum[data]
 (*68. Magic 5-gon ring*)
 
 
-canonicalPerm[p_] := RotateLeft[p, #] & /@ Range[3] // Sort
-nGonRing[n_] := Module[{inners, armSum, canonicalize, isValid, toDigits},
+nGonRing[n_] := Module[
+  {canonicalPerm, inners, armSum, fill, isValid, toDigits},
+  canonicalPerm[p_] := RotateLeft[p, #] & /@ Range[n] // Sort;
   inners = DeleteDuplicatesBy[canonicalPerm] @
     Permutations[Range[2n], {n}];
   armSum[inner_] := Total[inner] / n + 2n + 1;
-  canonicalize[inner_] := With[{list = Partition[inner, 2, 1, 1]},
+  fill[inner_] := With[{list = Partition[inner, 2, 1, 1]},
     Reverse /@ MapThread[Append, {list, armSum[inner] - Total /@ list}]];
   isValid[ring_] := With[{list = Flatten[ring]},
     Length @ Union @ list == 2n && AllTrue[Positive[#] && IntegerQ[#] &] @ list];
   toDigits[ring_] := FromDigits @ Flatten @ IntegerDigits @ MinimalBy[
     RotateLeft[Reverse[ring], #] & /@ Range[n], #[[1, 1]] &];
-  toDigits /@ Select[canonicalize /@ inners, isValid]
+  toDigits /@ Select[fill /@ inners, isValid]
 ]
-Max @ Select[# < 1*^16 &] @ nGonRing[5]
+Max @ nGonRing[3]
+(*Max @ Select[# < 1*^16 &] @ nGonRing[5]*)
 (* 6531031914842725 *)
 
 

@@ -8,7 +8,7 @@
 (*71. Ordered fractions*)
 
 
-With[{r = 3/7}, r - Min @ Select[Positive] @ Mod[r, 1 / Range[1*^6]]]
+With[{r = 3/7}, r - Min @ DeleteCases[0] @ Mod[r, 1 / Range[1*^6]]]
 (* 428570/999997 *)
 
 
@@ -16,7 +16,7 @@ With[{r = 3/7}, r - Min @ Select[Positive] @ Mod[r, 1 / Range[1*^6]]]
 (*72. Counting fractions*)
 
 
-Total @ EulerPhi @ Range[1*^6] - 1
+Total @ EulerPhi @ Range[2, 1*^6]
 (* 303963552391 *)
 
 
@@ -32,7 +32,7 @@ Count[FareySequence[12000], _?(1/3 < # < 1/2 &)] // AbsoluteTiming
 (*74. Digit factorial chains*)
 
 
-Module[{max = 1000000, len = 60, func, mapFunc, groups, chains},
+Module[{max = 1*^6, len = 60, func, mapFunc, groups, chains},
   func = Total @* Factorial @* IntegerDigits;
   groups = GroupBy[func] @ Range[max];
   chains = Association @ ParallelTable[
@@ -51,7 +51,7 @@ Module[{max = 1000000, len = 60, func, mapFunc, groups, chains},
 (*75. Singular integer right triangles*)
 
 
-Module[{max = 1500000, imax, kmax, triples},
+Module[{max = 15*^5, imax, kmax, triples},
   imax = Ceiling @ Max[i /. Solve[2i * (i + 1) == max, i]];
   triples = Union[Sort /@ Flatten[#, 2] & @
     Table[k * {i^2 - j^2, 2i*j, i^2 + j^2},
@@ -74,11 +74,9 @@ PartitionsP[100] - 1
 (*77. Prime summations*)
 
 
-Module[{primes = Prime /@ Range[50], primePartitions},
-  primePartitions[n_] :=
-    Length @ IntegerPartitions[n, All, Select[primes, # < n &]];
-  SelectFirst[Range[100], primePartitions[#] > 5000 &]
-]
+primePartitions[n_] :=
+  Length @ IntegerPartitions[n, All, Prime @ Range @ PrimePi @ n]
+NestWhile[# + 1 &, 1, primePartitions[#] < 5000 &]
 (* 71 *)
 
 
@@ -86,8 +84,8 @@ Module[{primes = Prime /@ Range[50], primePartitions},
 (*78. Coin partitions*)
 
 
-SelectFirst[Range[4, 100000, 5], Divisible[PartitionsP[#], 1*^6] &] // AbsoluteTiming
-(* {370.449, 55374} *)
+NestWhile[# + 1 &, 1, !Divisible[PartitionsP[#], 1*^6] &]
+(* 55374 *)
 
 
 (* ::Section:: *)
