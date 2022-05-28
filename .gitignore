@@ -17,9 +17,5 @@ euler/*.dSYM/
 
 exact-diagonalization/result.json
 
-leetcode/a.out
-leetcode/*.dSYM/
-leetcode/temp/
-
 wolfram/hanzi-superimposing/fonts/
 wolfram/hanzi-superimposing/images/
